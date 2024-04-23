@@ -7,26 +7,26 @@
 
                     <div class="field">
                         <label class="h2">Nombre</label>
-                          <div class="control">
-                              <input class="input" type="text" placeholder="Alex Smith" v-model="name">
-                          </div>
+                            <div class="control">
+                                <input class="input" type="text" placeholder="Alex Smith" v-model="name">
+                            </div>
                         </div>
 
-                     <div class="field">
-                          <label class="h2">Correo Electronico</label>
-                        <div class="control">
-                            <input class="input" type="email" placeholder="alexsmith@gmail.com" v-model="email">
-                        </div>
-                     </div>
+                    <div class="field">
+                        <label class="h2">Correo Electronico</label>
+                    <div class="control">
+                        <input class="input" type="email" placeholder="alexsmith@gmail.com" v-model="email">
+                    </div>
+                    </div>
 
-                     <div class="field">
-                          <label class="h2">Contraseña</label>
+                        <div class="field">
+                            <label class="h2">Contraseña</label>
                         <div class="control">
                             <input class="input" type="password" placeholder="********" v-model="password">
                         </div>
-                     </div>
+                    </div>
 
-                     <button type="submit" class="boton-registro">Registrarse</button>
+                        <button type="submit" class="boton-registro">Registrarse</button>
                 </form>
                 <div class="notification is-danger mt-10" v-if="error">
                     {{ error }}
