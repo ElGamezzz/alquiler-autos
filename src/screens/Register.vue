@@ -2,31 +2,31 @@
     <div class="container mt-50">
         <div class="columnas">
             <div class="column is-6 is-offset-3">
-                <h3 class="title is-3">Crear Cuenta</h3><hr>
+                <h3 class="title">Registrate Llenando estos datos</h3><hr>
                 <form action="#" @submit.prevent="register">
 
                     <div class="field">
-                        <label class="label">Name</label>
+                        <label class="h2">Nombre</label>
                           <div class="control">
                               <input class="input" type="text" placeholder="Alex Smith" v-model="name">
                           </div>
                         </div>
 
                      <div class="field">
-                          <label class="label">Email</label>
+                          <label class="h2">Correo Electronico</label>
                         <div class="control">
                             <input class="input" type="email" placeholder="alexsmith@gmail.com" v-model="email">
                         </div>
                      </div>
 
                      <div class="field">
-                          <label class="label">Contraseña</label>
+                          <label class="h2">Contraseña</label>
                         <div class="control">
                             <input class="input" type="password" placeholder="********" v-model="password">
                         </div>
                      </div>
 
-                     <button type="submit" class="boton-registro">Registrarme</button>
+                     <button type="submit" class="boton-registro">Registrarse</button>
                 </form>
                 <div class="notification is-danger mt-10" v-if="error">
                     {{ error }}
@@ -74,6 +74,9 @@ export default {
 </script>
 
 <style>
+.body {
+    background-color: #8a9fff;
+}
 .boton-registro {
     background-color: #019B7A;
     color: black;
@@ -84,6 +87,18 @@ export default {
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-top: 30px; /* Ajusta este valor según lo que necesites */
+}
+.title{
+    color:#000000;
+}
+.h2{
+    color:#000000;
+}
+.input{
+    background-color: #778894;
+    border-color: #004aad;
+    border-radius: 35px;
+    border: 4px;
 }
 
 
