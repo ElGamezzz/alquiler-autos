@@ -29,14 +29,14 @@
                     <div class="field">
                         <label class="h2">Ubicación</label>
                         <div class="control">
-                            <input class="input" type="text" placeholder="Ubicación" v-model="ubicacion">
+                            <input class="input" type="ubicacion" placeholder="Ubicación" v-model="ubicacion">
                         </div>
                     </div>
 
                     <div class="field">
                         <label class="h2">Cédula</label>
                         <div class="control">
-                            <input class="input" type="number" placeholder="Cédula" v-model="cedula">
+                            <input class="input" type="cedula" placeholder="Cédula" v-model="cedula">
                         </div>
                     </div>
 

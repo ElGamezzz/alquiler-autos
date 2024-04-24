@@ -5,13 +5,29 @@
         <nav class="navbar" role="navigation" aria-label="main navigation">
     <div id="navbarBasicExample" class="navbar-menu">
             <div class="buttons">
-        <router-link class="navbar-item" to="/">Inicio</router-link>
-            <router-link class="button is-primary" to="/signup">
-                <strong>Registrarse</strong>
-            </router-link>
-            <router-link class="button is-light" to="/login">
-                Iniciar Sesión
-            </router-link>
+            <template v-if="user">
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">
+                    Usuario
+                    </a>
+                    <div class="navbar-dropdown">
+                    <router-link class="navbar-item" to="/">
+                        Home
+                    </router-link>
+                    <a class="navbar-item is-selected" @click.prevent="logout()">
+                        Cerrar Sesion
+                    </a>
+                    </div>
+                </div>
+            </template>
+            <template v-else>
+                <router-link class="button is-primary" to="/signup">
+                    <strong>Registrarse</strong>
+                </router-link>
+                <router-link class="button is-light" to="/login">
+                    Iniciar Sesión
+                </router-link>
+            </template>
             </div>
         
     </div>
@@ -21,12 +37,52 @@
 
 <script>
 
+import axios from 'axios'; 
 
+export default {
+    data() {
+        return {
+            user: null
+        };
+    },
+    methods: {
+        async logout() {
+            localStorage.removeItem('token'); 
+            this.user = null; // Limpia el usuario en la sesión
+            this.$router.push('/login'); 
+        },
+        async checkAuth() {
+                    try {
+                const token = localStorage.getItem('token');
+                if (!token) {
+                    throw new Error('Token no encontrado en el localStorage');
+                }
 
-export default{
+                const response = await axios.get('http://localhost:4000/checkAuth', {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
 
-}
-
+                if (response.data.authenticated) {
+                    this.user = response.data.user;
+                } else {
+                    this.user = null;
+                    localStorage.removeItem('token');
+                    this.$router.push('/');
+                }
+            } catch (error) {
+                console.error(error);
+                this.user = null;
+                localStorage.removeItem('token');
+                this.$router.push('/login');
+            }
+        }
+    },
+    created() {
+        this.checkAuth(); 
+    }
+};
 </script>
 
 <style>
