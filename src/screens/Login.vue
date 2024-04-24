@@ -52,7 +52,7 @@ export default {
                     // Si la respuesta es exitosa, redirige al usuario a la página principal
                     if (response.status === 200) {
                         // Almacenar el token en el localStorage
-                        localStorage.setItem('token', response.data.token);
+                        // localStorage.setItem('token', response.data.token);
                         // Redirigir al usuario a la página principal, por ejemplo:
                         this.$router.push('/'); // Reemplaza '/ 'con la ruta real de tu página principal
                     } else {

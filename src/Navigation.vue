@@ -51,37 +51,37 @@ export default {
             this.user = null; // Limpia el usuario en la sesión
             this.$router.push('/login'); 
         },
-        async checkAuth() {
-                    try {
-                const token = localStorage.getItem('token');
-                if (!token) {
-                    throw new Error('Token no encontrado en el localStorage');
-                }
+    //     async checkAuth() {
+    //                 try {
+    //             const token = localStorage.getItem('token');
+    //             if (!token) {
+    //                 throw new Error('Token no encontrado en el localStorage');
+    //             }
 
-                const response = await axios.get('http://localhost:4000/checkAuth', {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                });
+    //             const response = await axios.get('http://localhost:4000/checkAuth', {
+    //                 headers: {
+    //                     Authorization: `Bearer ${token}`
+    //                 }
+    //             });
 
-                if (response.data.authenticated) {
-                    this.user = response.data.user;
-                } else {
-                    this.user = null;
-                    localStorage.removeItem('token');
-                    this.$router.push('/');
-                }
-            } catch (error) {
-                console.error(error);
-                this.user = null;
-                localStorage.removeItem('token');
-                this.$router.push('/login');
-            }
-        }
-    },
-    created() {
-        this.checkAuth(); 
-    }
+    //             if (response.data.authenticated) {
+    //                 this.user = response.data.user;
+    //             } else {
+    //                 this.user = null;
+    //                 localStorage.removeItem('token');
+    //                 this.$router.push('/');
+    //             }
+    //         } catch (error) {
+    //             console.error(error);
+    //             this.user = null;
+    //             localStorage.removeItem('token');
+    //             this.$router.push('/login');
+    //         }
+    //     }
+    // },
+    // created() {
+    //     this.checkAuth(); 
+     }
 };
 </script>
 

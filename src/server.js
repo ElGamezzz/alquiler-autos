@@ -20,16 +20,17 @@
     app.use(cors());
 
     // Ruta para verificar la autenticación
-    app.get('/checkAuth', (req, res) => {
-        const token = req.headers.authorization;
+    // app.get('/checkAuth', (req, res) => {
+    //     const token = req.headers.authorization;
 
-        if (!token) {
-            return res.status(401).json({ authenticated: false, user: null });
-        }
+    //     if (!token) {
+    //         return res.status(401).json({ authenticated: false, user: null });
+    //     }
 
         
-        return res.status(200).json({ authenticated: true, user });
-    });
+    //     return res.status(200).json({ authenticated: true, user });
+    // }); 
+    
 
     //Ruta para el login
     app.post('/login', (req, res) => {
