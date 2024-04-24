@@ -1,22 +1,21 @@
     // En tu archivo de servidor Node.js (app.js o similar)
 
-    import express from 'express';
-    import mysql from 'mysql';
-    import cors from 'cors'
+    import cors from 'cors';
+import express from 'express';
+import mysql from 'mysql';
 
     const app = express();
 
     // Configura la conexión a la base de datos
     const connection = mysql.createConnection({
         host: 'localhost',
-        database: 'signup',
+        database: 'carsharing',
         user: 'root',
-        password: '',
+        password: '123contraseña456',
         port: 3306
     });
 
     app.use(express.json()); // Para poder manejar datos JSON en las peticiones
-
     app.use(cors());
 
     // Ruta para el registro de usuarios

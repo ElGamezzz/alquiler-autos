@@ -7,26 +7,40 @@
 
                     <div class="field">
                         <label class="h2">Nombre</label>
-                            <div class="control">
-                                <input class="input" type="text" placeholder="Alex Smith" v-model="name">
-                            </div>
+                        <div class="control">
+                            <input class="input" type="text" placeholder="Alex Smith" v-model="name">
                         </div>
+                    </div>
 
                     <div class="field">
                         <label class="h2">Correo Electronico</label>
-                    <div class="control">
-                        <input class="input" type="email" placeholder="alexsmith@gmail.com" v-model="email">
-                    </div>
+                        <div class="control">
+                            <input class="input" type="email" placeholder="alexsmith@gmail.com" v-model="email">
+                        </div>
                     </div>
 
-                        <div class="field">
-                            <label class="h2">Contraseña</label>
+                    <div class="field">
+                        <label class="h2">Contraseña</label>
                         <div class="control">
                             <input class="input" type="password" placeholder="********" v-model="password">
                         </div>
                     </div>
 
-                        <button type="submit" class="boton-registro">Registrarse</button>
+                    <div class="field">
+                        <label class="h2">Ubicación</label>
+                        <div class="control">
+                            <input class="input" type="text" placeholder="Ubicación" v-model="ubicacion">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="h2">Cédula</label>
+                        <div class="control">
+                            <input class="input" type="number" placeholder="Cédula" v-model="cedula">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="boton-registro">Registrarse</button>
                 </form>
                 <div class="notification is-danger mt-10" v-if="error">
                     {{ error }}
@@ -46,23 +60,28 @@ export default {
             name: '',
             email: '',
             password: '',
+            ubicacion:'',
+            cedula:'',
             error: ''
         };
     },
     methods: {
         async register() {
             this.error = '';
-            if (this.name && this.email && this.password) {
+            if (this.name && this.email && this.password && this.ubicacion && this.cedula) {
                 try {
                     // Enviar los datos del usuario al servidor Node.js
                     const response = await axios.post('http://localhost:4000/signup', {
                         name: this.name,
                         email: this.email,
-                        password: this.password
+                        password: this.password,
+                        ubicacion: this.ubicacion,
+                        cedula: this.cedula
                     });
                     console.log(response.data); // Puedes mostrar una confirmación o hacer otras acciones después de registrar al usuario
                 } catch (error) {
-                    this.error = error.message;
+                    this.error = 'Error al registrar usuario';
+                    console.error(error);
                 }
             } else {
                 this.error = 'Todos los campos son requeridos';
