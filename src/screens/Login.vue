@@ -49,7 +49,6 @@ export default {
                         email: this.email,
                         password: this.password
                     });
-                    // Si la respuesta es exitosa, redirige al usuario a la página principal
                     if (response.status === 200) {
                         // Almacenar el token en el localStorage
                         localStorage.setItem('token', response.data.token);
