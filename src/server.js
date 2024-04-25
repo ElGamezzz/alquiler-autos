@@ -10,9 +10,9 @@
     // Configura la conexión a la base de datos
     const connection = mysql.createConnection({
         host: 'localhost',
-        database: 'signup',
-        user: 'root',
-        password: 'marven2202',
+        database: 'prueba',
+        user: 'mysql_user',
+        password: 'mysql123@',
         port: 3306
     });
 
@@ -41,7 +41,7 @@
         }
     
         // Buscar el usuario en la base de datos
-        connection.query('SELECT * FROM usuarios WHERE email = ?', [email], (error, results) => {
+        connection.query('SELECT * FROM users WHERE email = ?', [email], (error, results) => {
             if (error) {
                 console.error(error);
                 return res.status(500).json({ error: 'Error al buscar usuario' });
@@ -73,7 +73,7 @@
 
         const newUser = { name, email, password, ubicacion, cedula };
 
-        connection.query('INSERT INTO usuarios SET ?', newUser, (error) => {
+        connection.query('INSERT INTO users SET ?', newUser, (error) => {
             if (error) {
                 console.error(error);
                 return res.status(500).json({ error: 'Error al registrar usuario' });
