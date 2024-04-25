@@ -1,6 +1,6 @@
 <template>
     <router-link class="header" to="/">
-        <h1 class="h3">Carsharing</h1>
+        <h1 class="title">Carsharing</h1>
     </router-link>
         <nav class="navbar" role="navigation" aria-label="main navigation">
     <div id="navbarBasicExample" class="navbar-menu">
@@ -21,10 +21,10 @@
                 </div>
             </template>
             <template v-else>
-                <router-link class="button is-primary" to="/signup">
+                <router-link class="ButtonHome" to="/signup">
                     <strong>Registrarse</strong>
                 </router-link>
-                <router-link class="button is-light" to="/login">
+                <router-link class="ButtonHome" to="/login">
                     Iniciar Sesión
                 </router-link>
             </template>
@@ -37,7 +37,6 @@
 
 <script>
 
-import axios from 'axios'; 
 
 export default {
     data() {
@@ -87,32 +86,29 @@ export default {
 
 <style>
 body {
-    background-color: #8A9FFF;
+    background-color: #000000;
 }
 .header{
-    background-color: #8A9FFF;
+    background-color: #000000 !important;
 }
-.h3 {
+.title {
     font-size: 90px; /* Tamaño de fuente */
     margin: 0; /* Eliminar el margen para centrar */
     line-height: 1; /* Ajustar el espacio entre líneas */
     text-align: center; /* Centrar el texto */
-    color: #ff3131; /* Color del texto */
+    color: #ffffff !important; /* Color del texto */
+    margin-bottom: 2rem;
 }
 /* Estilos generales para la barra de navegación */
 .navbar {
     align-items: center;
     padding: 20; /* Espaciado interno */
+    background-color: transparent !important ;
 }
 
 .navbar-brand {
     display: flex;
     align-items: center;
-}
-
-.navbar-item {
-    color: #000000; /* Color del texto */
-    text-decoration: none; /* Quitar subrayado */
 }
 
 .navbar-burger {
@@ -124,7 +120,7 @@ body {
 .navbar-menu {
     align-items: center;
     flex-direction: column;
-    background-color: #8A9FFF;
+    background-color: #000000;
 }
 
 .navbar-start{
@@ -136,12 +132,13 @@ body {
     flex-direction: column;
     align-items: center;
 }
-.buttons .button {
-    margin-left: 0.5rem;
-    margin-top: irem;
+.ButtonHome{
+    background-color: #ffffff;
+    color: #000;
+    margin-left: 1rem;
+    margin-top: 1rem;
+    border-radius: 2rem;
+    padding: 1.5rem;
 }
 
-.buttons .button:hover {
-    background-color: #ff000038; /* Color de fondo al pasar el mouse */
-}
 </style>

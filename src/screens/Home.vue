@@ -13,6 +13,6 @@ export default {};
     font-weight: bold;
     font-size: 22px;
     text-align: center;
-    color:black
+    color:rgb(252, 250, 250)
 }
 </style>

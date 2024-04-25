@@ -96,16 +96,16 @@ export default {
 .body {
     background-color: #8a9fff;
 }
-.boton-registro {
-    background-color: #019B7A;
+.boton-registro{
+    background-color: #ffffff;
     color: black;
     border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
+    border-radius: 1rem;
+    padding: 1.5rem;
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-top: 30px; /* Ajusta este valor según lo que necesites */
+    margin-top: 2rem; /* Ajusta este valor según lo que necesites */
 }
 .title{
     color:#000000;

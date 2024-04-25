@@ -29,59 +29,55 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import axios from 'axios';
+import { ref } from 'vue';
 
-export default {
-    data() {
-        return {
-            email: '',
-            password: '',
-            error: ''
-        };
-    },
-    methods: {
-        async login() {
-            this.error = '';
-            if (this.email && this.password) {
-                try {
-                    const response = await axios.post('http://localhost:4000/login', {
-                        email: this.email,
-                        password: this.password
-                    });
-                    if (response.status === 200) {
-                        // Almacenar el token en el localStorage
-                        // localStorage.setItem('token', response.data.token);
-                        // Redirigir al usuario a la página principal, por ejemplo:
-                        this.$router.push('/'); // Reemplaza '/ 'con la ruta real de tu página principal
-                    } else {
-                        this.error = 'Error al iniciar sesión';
-                    }
-                } catch (error) {
-                    this.error = error.message;
-                }
+const email = ref('');
+const password = ref('');
+const error = ref('');
+
+async function login() {
+    error.value = '';
+    if (email.value && password.value) {
+        try {
+            const response = await axios.post('http://localhost:4000/login', {
+                email: email.value,
+                password: password.value
+            });
+            if (response.status === 200) {
+                // Almacenar el token en el localStorage
+                // localStorage.setItem('token', response.data.token);
+                // Redirigir al usuario a la página principal, por ejemplo:
+                // router.push('/'); // Reemplaza '/ 'con la ruta real de tu página principal
             } else {
-                this.error = 'Todos los campos son requeridos';
+                error.value = 'Error al iniciar sesión';
             }
+        } catch (err) {
+            error.value = err.message;
         }
+    } else {
+        error.value = 'Todos los campos son requeridos';
     }
-};
+}
 </script>
+
 
 <style>
 .body {
     background-color: #8a9fff;
 }
 .boton-login {
-    background-color: #019B7A;
     color: black;
     border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
+    border-radius: 1rem;
+    padding: 1rem;
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-top: 30px;
+    margin-top: 1rem;
+    background-color: #ffffff;
+    
 }
 .title {
     color: #000000;
