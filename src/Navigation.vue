@@ -90,6 +90,7 @@ body {
 }
 .header{
     background-color: #000000 !important;
+    width: 100%;
 }
 .title {
     font-size: 90px; /* Tamaño de fuente */
@@ -104,28 +105,35 @@ body {
     align-items: center;
     padding: 20; /* Espaciado interno */
     background-color: transparent !important ;
+    width: 100%;
+    display: flex
 }
 
 .navbar-brand {
     display: flex;
     align-items: center;
+    width: 100%;
 }
 
 .navbar-burger {
     border: none;
     background-color: transparent;
     cursor: pointer;
+    width: 100%;
+    display: flex
 }
 
 .navbar-menu {
     align-items: center;
     flex-direction: column;
     background-color: #000000;
+    width: 100%;
 }
 
 .navbar-start{
     display: flex;
     align-items: center;
+    width: 100%;
 }
 .buttons{
     display: flex;
@@ -139,6 +147,7 @@ body {
     margin-top: 1rem;
     border-radius: 2rem;
     padding: 1.5rem;
+    margin-right: 1rem;
 }
 
 </style>
