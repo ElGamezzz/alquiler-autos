@@ -49,49 +49,38 @@
         </div>
     </div>
 </template>
+<script setup>
+import { ref } from 'vue';
+import axios from 'axios';
 
-<script>
+const name = ref('');
+const email = ref('');
+const password = ref('');
+const ubicacion = ref('');
+const cedula = ref('');
+const error = ref('');
 
-import axios from 'axios'; // Importa Axios para hacer las peticiones HTTP
-
-export default {
-    data() {
-        return {
-            name: '',
-            email: '',
-            password: '',
-            ubicacion:'',
-            cedula:'',
-            error: ''
-        };
-    },
-    methods: {
-        async register() {
-            this.error = '';
-            if (this.name && this.email && this.password && this.ubicacion && this.cedula) {
-                try {
-                    // Enviar los datos del usuario al servidor Node.js
-                    const response = await axios.post('http://localhost:4000/signup', {
-                        name: this.name,
-                        email: this.email,
-                        password: this.password,
-                        ubicacion: this.ubicacion,
-                        cedula: this.cedula
-                    });
-                    console.log(response.data); // Puedes mostrar una confirmación o hacer otras acciones después de registrar al usuario
-                } catch (error) {
-                    this.error = 'Error al registrar usuario';
-                    console.error(error);
-                }
-            } else {
-                this.error = 'Todos los campos son requeridos';
-            }
-        }
+const register = async () => {
+  error.value = '';
+  if (name.value && email.value && password.value && ubicacion.value && cedula.value) {
+    try {
+      const response = await axios.post('http://localhost:4000/signup', {
+        name: name.value,
+        email: email.value,
+        password: password.value,
+        ubicacion: ubicacion.value,
+        cedula: cedula.value
+      });
+      console.log(response.data);  // Puedes mostrar una confirmación o hacer otras acciones después de registrar al usuario
+    } catch (err) {
+      error.value = 'Error al registrar usuario';
+      console.error(err);
     }
-};
-
+  } else {
+    error.value = 'Todos los campos son requeridos';
+  }
+}
 </script>
-
 <style>
 .body {
     background-color: #8a9fff;

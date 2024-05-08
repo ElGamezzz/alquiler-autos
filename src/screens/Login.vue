@@ -46,8 +46,8 @@ async function login() {
                 password: password.value
             });
             if (response.status === 200) {
-                // Almacenar el token en el localStorage
-                // localStorage.setItem('token', response.data.token);
+                localStorage.setItem('token', response.data.token);
+                alert("inicio de seccion correcto")
                 // Redirigir al usuario a la página principal, por ejemplo:
                 // router.push('/'); // Reemplaza '/ 'con la ruta real de tu página principal
             } else {
