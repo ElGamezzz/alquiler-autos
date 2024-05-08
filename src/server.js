@@ -82,6 +82,24 @@
         });
     });
 
+    app.get('/vehiculos', (req, res) => {
+        const { Caracteristicas } = req.query;
+    
+        connection.query('SELECT * FROM vehiculos ', [Caracteristicas], (error, results) => {
+            if (error) {
+                console.error('Error en la base de datos:', error);
+                return res.status(500).send('Error al procesar la solicitud');
+            }
+    
+            if (results.length > 0) {
+                const datos_vehiculo = results;
+                
+                res.json(datos_vehiculo);
+            } else {
+                res.status(404).send('No se encontraron vehículos con las características especificadas');
+            }
+        });
+    });
     // Otros middleware y rutas...
 
     const PORT = 4000;
