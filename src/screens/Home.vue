@@ -13,6 +13,23 @@
         </div>
     </div>
     <div class="h2">Estos son los autos que tenemos disponibles para alquilar</div>
+    <div class="InfoAutos">
+        <div class="Autos">
+        <h1>ya p aqui debería comunicarse con la database para mostrar los autos</h1>
+        </div>
+    <div class="Autos">
+        <h1>ya p aqui debería comunicarse con la database para mostrar los autos x2</h1>
+        </div>
+        <div class="Autos">
+            <h1>he ir añadiendo cuantos más sean necesarios</h1>
+            </div>
+            <div class="Autos">
+                <h1>solo es un ejemplo, no es que vaya a quedar asi oficialmente</h1>
+                </div>
+                <div class="Autos">
+                    <h1>igual que como lo hicieron en el primer trabajo, ya saben</h1>
+                    </div>
+    </div>
 </template>
 
 <script>
@@ -40,6 +57,8 @@ export default {};
 .BoxInfo{
     display: flex;
     margin:10px;
+    height: auto;
+    background-color: rgb(0, 0, 0);
 }
 .text-section, .image-section {
     flex: 1;
@@ -47,12 +66,29 @@ export default {};
     width:50%;
 }
 .image-section {
-    text-align: right;
+    text-align: center;
 }
 .Imagen{
     border-radius: 50%;
-    width: 100%;
+    width: 60%;
     height: 100%;
-
+}
+.InfoAutos{
+    background-color: rgb(0, 0, 0);
+    height: auto;
+    margin: 10px;
+    flex-direction: row ;
+    width: 100%;
+    flex: auto;
+    flex-wrap: wrap;
+    display: flex;
+}
+.Autos{
+    background-color: rgb(0, 0, 0);
+    height: 100%;
+    width: 30%;
+    margin: 5px;
+    flex-direction: column;
+    border-style: dashed;
 }
 </style>
