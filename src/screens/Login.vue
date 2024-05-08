@@ -66,6 +66,7 @@ async function login() {
 <style>
 .body {
     background-color: #8a9fff;
+    width: 100%;
 }
 .boton-login {
     color: black;
@@ -80,10 +81,10 @@ async function login() {
     
 }
 .title {
-    color: #000000;
+    color: #ffffff;
 }
 .h2 {
-    color: #000000;
+    color: #ffffff;
 }
 .input {
     background-color: #778894;
