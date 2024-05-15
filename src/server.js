@@ -1,9 +1,9 @@
     // En tu archivo de servidor Node.js (app.js o similar)
 
     import cors from 'cors';
-    import express from 'express';
-    import mysql from 'mysql';
-    import jwt from 'jsonwebtoken';
+import express from 'express';
+import jwt from 'jsonwebtoken';
+import mysql from 'mysql';
 
     const app = express();
 

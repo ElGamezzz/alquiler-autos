@@ -14,26 +14,75 @@
     </div>
     <div class="h2">Estos son los autos que tenemos disponibles para alquilar</div>
     <div class="InfoAutos">
-        <div class="Autos">
-        <h1>ya p aqui debería comunicarse con la database para mostrar los autos</h1>
-        </div>
-    <div class="Autos">
-        <h1>ya p aqui debería comunicarse con la database para mostrar los autos x2</h1>
-        </div>
-        <div class="Autos">
-            <h1>he ir añadiendo cuantos más sean necesarios</h1>
+            <div class="Autos" v-for="vehiculos in v_data":key = "vehiculos.idVehiculos" @click="abrirModal(vehiculos)">
+                <h2>{{vehiculos.Categoria}}</h2>
+                <h3>{{vehiculos.marca}}</h3>
+                <h1>{{vehiculos.precio}}</h1>
             </div>
-            <div class="Autos">
-                <h1>solo es un ejemplo, no es que vaya a quedar asi oficialmente</h1>
-                </div>
-                <div class="Autos">
-                    <h1>igual que como lo hicieron en el primer trabajo, ya saben</h1>
-                    </div>
     </div>
-</template>
+        <!-- Modal -->
+<div v-if="modalVisible" class="modal">
+<div class="modal-content">
+    <span class="close" @click="cerrarModal">&times;</span>
+    <h2>{{ vehiculoSeleccionado.Categoria }}</h2>
+    <h3>{{ vehiculoSeleccionado.marca }}</h3>
+    <h3>{{ vehiculoSeleccionado.precio }}</h3>
+    <h3>{{ vehiculoSeleccionado.color}}</h3>
+    <h3>{{ vehiculoSeleccionado.modelo}}</h3>
 
-<script>
-export default {};
+    <!-- ... más información del vehículo ... -->
+</div>
+</div>
+</template>
+<script setup>
+import axios from 'axios';
+import { onBeforeMount, ref } from 'vue';
+
+const v_data = ref([]);
+const vehiculoSeleccionado = ref({});
+const modalVisible = ref(false);
+console.log(v_data)
+
+async function cargar_vehiculos() {
+
+    try {
+        const response = await axios.get('http://localhost:4000/vehiculos', {
+        });
+        v_data.value = response.data.map(item => {
+            try {
+                if (item.Caracteristicas) {
+                    const caracteristicasParsed = JSON.parse(item.Caracteristicas);
+                    return {
+                        idVehiculos: item.idVehiculos,
+                        ...caracteristicasParsed
+                    };
+                } else {
+                    return {
+                        idVehiculos: item.idVehiculos,
+                        error: 'Missing characteristics data'
+                    };
+                }
+            } catch (parseError) {
+                return {
+                    idVehiculos: item.idVehiculos,
+                    error: 'Error parsing data'
+                };
+            }
+        });
+    } catch (err) {
+        error.value = 'Error al cargar datos de vehiculo';
+        console.error(err);
+    }
+}
+
+onBeforeMount(cargar_vehiculos);
+function abrirModal(vehiculos){
+    vehiculoSeleccionado.value = vehiculos;
+    modalVisible.value = true;
+}
+function cerrarModal(){
+    modalVisible.value = false;
+}
 </script>
 
 <style>
@@ -90,5 +139,31 @@ export default {};
     margin: 5px;
     flex-direction: column;
     border-style: dashed;
+}
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    width: 80%;
+    max-width: 500px;
+}
+.close {
+    cursor: pointer;
+    font-size: 18px;
 }
 </style>
