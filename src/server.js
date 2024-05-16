@@ -62,6 +62,27 @@ import mysql from 'mysql';
             }
         });
     });
+    app.post('/ubicacion', (req, res) => {
+        const { idVehiculos } = req.body;
+    
+        if (!idVehiculos ) {
+            return res.status(400).json({ error: 'se requiere id' });
+        }
+    
+        // Buscar el usuario en la base de datos
+        connection.query('SELECT * FROM ubicacion_v WHERE idVehiculos = ?', [idVehiculos], (error, results) => {
+           
+            if (error) {
+                console.error(error);
+                return res.status(500).json({ error: 'Error al buscar vehiculo' });
+            }
+            if (results.length === 0) {
+                return res.status(401).json({ error: 'Sin resultados ' });
+            }
+            const ub_data = results;
+            res.json(ub_data);
+        });
+    });
 
     // Ruta para el registro de usuarios
     app.post('/signup', (req, res) => {

@@ -3,9 +3,11 @@
         <div class="Contenedor">
             <h1></h1>
             <div class="tarjetas" v-for="vehiculos in v_data":key = "vehiculos"  >
-                <h2>{{vehiculos.Categoria}}</h2>
+                <h1>{{vehiculos.Categoria}}</h1>
                 <h3>{{vehiculos.marca}}</h3>
-                <h1>{{vehiculos.precio}}</h1>
+                <h3>{{vehiculos.modelo}}</h3>
+                <h3>{{vehiculos.precio}}</h3>
+                <button @click="$router.push({ path: `/mapEx/${vehiculos.idVehiculos}`,query:{QID:vehiculos.idVehiculos} })">Alquilar</button>
             </div>
         </div>
      </body>
@@ -59,14 +61,13 @@ cargar_vehiculos
 
 .tarjetas {
     color: aliceblue;
-    width: 40%;
-    height: 80%;
+    width: 20%;
     display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    flex-direction: row;
+    flex-direction: column;
     background-color: rgb(26, 26, 26);
-
+    justify-content: center;
+    align-content: center;
+    align-items: center;
 }
 
 .Contenedor{  
@@ -78,5 +79,14 @@ cargar_vehiculos
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    gap: 5rem;
+
     }
+button{
+    color: black;
+    background-color: aliceblue;
+    border-radius: 10%;
+    width: 70%;
+}
+
 </style>
