@@ -65,22 +65,26 @@ import mysql from 'mysql';
     app.post('/ubicacion', (req, res) => {
         const { idVehiculos } = req.body;
     
-        if (!idVehiculos ) {
+        if (!idVehiculos) {
             return res.status(400).json({ error: 'se requiere id' });
         }
     
-        // Buscar el usuario en la base de datos
+        // Buscar el vehículo en la base de datos
         connection.query('SELECT * FROM ubicacion_v WHERE idVehiculos = ?', [idVehiculos], (error, results) => {
-           
             if (error) {
                 console.error(error);
                 return res.status(500).json({ error: 'Error al buscar vehiculo' });
             }
             if (results.length === 0) {
-                return res.status(401).json({ error: 'Sin resultados ' });
+                return res.status(404).json({ error: 'Vehículo no encontrado' });
             }
-            const ub_data = results;
-            res.json(ub_data);
+            const ub_data = results[0];
+            res.json({
+                idUbicacion: ub_data.idUbicacion_V,
+                latitud: ub_data.Ubicacion_V_LAT,
+                longitud: ub_data.Ubicacion_V_LON,
+                estado: ub_data.Disponibilidad
+            });
         });
     });
 
