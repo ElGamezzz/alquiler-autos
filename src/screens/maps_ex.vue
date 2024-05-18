@@ -1,9 +1,10 @@
 <template>
     <div id="Mainconte">
         <div id="CarINFO">
-          <h1>{{ veh_estado }}</h1>
+          <h1 v-if="veh_estado == 'True' ">El Vehiculo esta disponible</h1>
+          <h1 v-else>Este vehiculo ya esta reservado o no esta disponible</h1>
         </div>
-        <capacitor-google-map id="map"></capacitor-google-map>
+        <capacitor-google-map id="map" ></capacitor-google-map>
     </div>
 </template>
 
@@ -11,13 +12,19 @@
 <style scoped>
   capacitor-google-map {
     display: inline-flex;
-    width: 70%;
+    width: 50%;
     height: 30rem;
   }
   .Mainconte{
     display:flex;
     align-items: center;
     align-self: center;
+    align-content: center;
+  }
+  .CarINFO{
+    display:flex;
+    align-items: center;
+    align-self:flex-end;
     align-content: center;
   }
   
@@ -35,6 +42,7 @@ const v_ub_LONG = ref("");
 const veh_estado = ref("");
 const error = ref("");
 const Id_Vquery = route.query.QID;
+
 
 const busqueda_V = async () => {
   try {
@@ -74,7 +82,7 @@ const createMap = async () => {
   },
   iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/f/f0/Car_with_Driver-Silhouette.svg',
   iconSize:{
-    width:20,
+    width:25,
     height:20,
   },
   tintColor:{
@@ -90,7 +98,7 @@ onBeforeMount(busqueda_V);
 
 onMounted(() => {
   if (v_ub_LAT.value && v_ub_LONG.value) {
-    createMap();
+      createMap();
   }
 });
 </script>
