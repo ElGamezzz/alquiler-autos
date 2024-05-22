@@ -10,7 +10,7 @@
                 <h3>Color:{{ vehiculos.color }}</h3>
                 <h3>Precio de alquiler: {{vehiculos.precio}}</h3>
                 <img :src="vehiculos.imagen">
-                <button @click="$router.push({ path: `/mapEx/${vehiculos.idVehiculos}`,query:{QID:vehiculos.idVehiculos} })">Alquilar</button>
+                <button @click="$router.push({ path: `/mapEx/${vehiculos.idVehiculos}`,query:{QID:vehiculos.idVehiculos,Img:vehiculos.imagen} })">Alquilar</button>
             </div>
         </div>
         <header></header>

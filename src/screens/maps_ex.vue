@@ -1,36 +1,62 @@
 <template>
-    <div id="Mainconte">
-        <div id="CarINFO">
-          <h1 v-if="veh_estado == 'True' ">El Vehiculo esta disponible</h1>
-          <h1 v-else>Este vehiculo ya esta reservado o no esta disponible</h1>
-          <router-link v-if="veh_estado !== 'True'" to="/alquiler">
-            Volver
-          </router-link>
-        </div>
-        <capacitor-google-map id="map" ></capacitor-google-map>
+  <div id="Mainconte">
+    <div id="CarINFO">
+      <h1 id="title" v-if="veh_estado == 'True'">El Vehiculo esta disponible</h1>
+      <h1 id="title" v-else>Este vehiculo ya esta reservado o no esta disponible</h1>
+      <img :src="img_query" alt="">
+      <button>CONFIRMAR</button>
+      <router-link v-if="veh_estado !== 'True'" to="/alquiler">
+        Volver
+      </router-link>
     </div>
+    <capacitor-google-map id="map"></capacitor-google-map>
+  </div>
 </template>
 
-
 <style scoped>
+  #Mainconte {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+  }
+
+  #CarINFO {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left:2%;
+    border-width: 2%;
+    border-style: dashed;
+    border-radius: 10%;
+    border-color: rgba(255, 255, 255, 0.411);
+    border-width: 5%;
+  }
+
   capacitor-google-map {
-    display: inline-flex;
-    width: 50%;
+    width: 45%;
     height: 30rem;
+    margin-right:2%;
   }
-  .Mainconte{
-    display:flex;
-    align-items: center;
-    align-self: center;
-    align-content: center;
+
+  img {
+    max-width: 50%;
+    max-height: 35%;
+    margin-bottom: 1rem;
   }
-  .CarINFO{
-    display:flex;
-    align-items: center;
-    align-self:flex-end;
-    align-content: center;
+
+  button {
+    background-color: aliceblue;
+    color: black;
+    width: 40%;
+    height: 2rem;
+    margin-bottom: 1rem;
   }
-  
+  #title{
+    font-size: 150%;
+    color: aliceblue;
+  }
 </style>
 
 <script setup>
@@ -45,6 +71,7 @@ const v_ub_LONG = ref("");
 const veh_estado = ref("");
 const error = ref("");
 const Id_Vquery = route.query.QID;
+const img_query = route.query.Img
 
 
 const busqueda_V = async () => {
