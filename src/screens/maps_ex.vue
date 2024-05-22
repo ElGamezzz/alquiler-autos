@@ -3,6 +3,9 @@
         <div id="CarINFO">
           <h1 v-if="veh_estado == 'True' ">El Vehiculo esta disponible</h1>
           <h1 v-else>Este vehiculo ya esta reservado o no esta disponible</h1>
+          <router-link v-if="veh_estado !== 'True'" to="/alquiler">
+            Volver
+          </router-link>
         </div>
         <capacitor-google-map id="map" ></capacitor-google-map>
     </div>
@@ -31,10 +34,10 @@
 </style>
 
 <script setup>
-import { useRoute } from 'vue-router';
 import { GoogleMap } from '@capacitor/google-maps';
-import { onBeforeMount, onMounted, ref } from 'vue';
 import axios from 'axios';
+import { onBeforeMount, onMounted, ref } from 'vue';
+import { useRoute } from 'vue-router';
 
 const route = useRoute();
 const v_ub_LAT = ref("");

@@ -3,18 +3,18 @@
         <div class="Contenedor">
             <h1></h1>
             <div class="tarjetas" v-for="vehiculos in v_data":key = "vehiculos"  >
-                <h1>{{vehiculos.Categoria}}</h1>
-                <h3>{{vehiculos.marca}}</h3>
-                <h3>{{vehiculos.modelo}}</h3>
-                <h3>{{vehiculos.precio}}</h3>
+                <h1>Categoria: {{vehiculos.Categoria}}</h1>
+                <h3>Marca: {{vehiculos.marca}}</h3>
+                <h3>Modelo: {{vehiculos.modelo}}</h3>
+                <h3>Precio de alquiler: {{vehiculos.precio}}</h3>
                 <button @click="$router.push({ path: `/mapEx/${vehiculos.idVehiculos}`,query:{QID:vehiculos.idVehiculos} })">Alquilar</button>
             </div>
         </div>
      </body>
 </template>
 <script setup>
-import { onBeforeMount, ref } from 'vue';
 import axios from 'axios';
+import { onBeforeMount, ref } from 'vue';
 
 const v_data = ref("");
 console.log(v_data)

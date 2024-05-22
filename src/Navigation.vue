@@ -27,9 +27,13 @@
                 <router-link class="ButtonHome" to="/login">
                     Iniciar Sesión
                 </router-link>
+                
+        <router-link to="/">
+            <button class="ButtonHome">Inicio</button>
+        </router-link>
             </template>
+            
             </div>
-        
     </div>
     </nav>
 
@@ -50,6 +54,9 @@ export default {
             this.user = null; // Limpia el usuario en la sesión
             this.$router.push('/login'); 
         },
+        goBack() {
+      this.$router.go(-1); // Regresa una página atrás en el historial
+    }
     //     async checkAuth() {
     //                 try {
     //             const token = localStorage.getItem('token');
@@ -103,7 +110,7 @@ body {
 /* Estilos generales para la barra de navegación */
 .navbar {
     align-items: center;
-    padding: 20; /* Espaciado interno */
+    padding: 10px; /* Espaciado interno */
     background-color: transparent !important ;
     width: 100%;
     display: flex
@@ -137,7 +144,7 @@ body {
 }
 .buttons{
     display: flex;
-    flex-direction: column;
+    
     align-items: center;
 }
 .ButtonHome{
@@ -147,7 +154,22 @@ body {
     margin-top: 1rem;
     border-radius: 2rem;
     padding: 1.5rem;
+    margin-right: 10px;
+}
+.boton{
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    border: none;
+    padding: 1.5em;
+    border-radius: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 1rem;
+    margin-top: 1rem;
     margin-right: 1rem;
+    width: auto;
+
 }
 
 </style>

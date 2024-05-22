@@ -14,24 +14,10 @@
     </div>
     <div class="h2">Estos son los autos que tenemos disponibles para alquilar</div>
     <div class="InfoAutos">
-            <div class="Autos" v-for="vehiculos in v_data":key = "vehiculos.idVehiculos" @click="abrirModal(vehiculos)">
-                <h2>{{vehiculos.Categoria}}</h2>
-                <h3>{{vehiculos.marca}}</h3>
-                <h1>{{vehiculos.precio}}</h1>
-            </div>
-    </div>
-        <!-- Modal -->
-<div v-if="modalVisible" class="modal">
-<div class="modal-content">
-    <span class="close" @click="cerrarModal">&times;</span>
-    <h2>{{ vehiculoSeleccionado.Categoria }}</h2>
-    <h3>{{ vehiculoSeleccionado.marca }}</h3>
-    <h3>{{ vehiculoSeleccionado.precio }}</h3>
-    <h3>{{ vehiculoSeleccionado.color}}</h3>
-    <h3>{{ vehiculoSeleccionado.modelo}}</h3>
+        <router-link to="/alquiler">
+            <button class="Boton">Aqui tenemos los autos para alquilar</button>
+        </router-link>
 
-    <!-- ... más información del vehículo ... -->
-</div>
 </div>
 </template>
 <script setup>
@@ -126,11 +112,12 @@ function cerrarModal(){
     background-color: rgb(0, 0, 0);
     height: auto;
     margin: 10px;
-    flex-direction: row ;
+    flex-direction: column ;
     width: 100%;
     flex: auto;
     flex-wrap: wrap;
     display: flex;
+    align-items: center;
 }
 .Autos{
     background-color: rgb(0, 0, 0);
@@ -165,5 +152,16 @@ function cerrarModal(){
 .close {
     cursor: pointer;
     font-size: 18px;
+}
+.Boton{
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: auto;
+
 }
 </style>
