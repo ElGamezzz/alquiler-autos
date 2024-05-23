@@ -1,65 +1,60 @@
 <template>
-    <body>
-        <header></header>
-        <div class="Contenedor">
-            <h1></h1>
-            <div class="tarjetas" v-for="vehiculos in v_data":key = "vehiculos" >
-                <h1>Categoria: {{vehiculos.Categoria}}</h1>
-                <h3>Marca: {{vehiculos.marca}}</h3>
-                <h3>Modelo: {{vehiculos.modelo}}</h3>
-                <h3>Color:{{ vehiculos.color }}</h3>
-                <h3>Precio de alquiler: {{vehiculos.precio}}</h3>
-                <img :src="vehiculos.imagen">
-                <button @click="$router.push({ path: `/mapEx/${vehiculos.idVehiculos}`,query:{QID:vehiculos.idVehiculos,Img:vehiculos.imagen} })">Alquilar</button>
-            </div>
+    <div>
+      <header></header>
+      <div class="Contenedor">
+        <h1></h1>
+        <div class="tarjetas" v-for="vehiculos in v_data" :key="vehiculos.idVehiculos">
+          <h1>Categoria: {{ vehiculos.Categoria }}</h1>
+          <h3>Marca: {{ vehiculos.marca }}</h3>
+          <h3>Modelo: {{ vehiculos.modelo }}</h3>
+          <h3>Color: {{ vehiculos.color }}</h3>
+          <h3>Precio de alquiler: {{ vehiculos.precio }} COP</h3>
+          <img :src="vehiculos.imagen">
+          <button @click="$router.push({ path: `/mapEx/${vehiculos.idVehiculos}`, query: { QID: vehiculos.idVehiculos, Img: vehiculos.imagen } })">Alquilar</button>
         </div>
-        <header></header>
-     </body>
-</template>
-<script setup>
-import axios from 'axios';
+      </div>
+      <header></header>
+    </div>
+  </template>
+  
+  <script setup>
+  import axios from 'axios';
 import { onBeforeMount, ref } from 'vue';
-
-const v_data = ref("");
-
-
-async function cargar_vehiculos() {
-
+  
+  const v_data = ref("");
+  
+  async function cargar_vehiculos() {
     try {
-      const response = await axios.get('http://localhost:4000/vehiculos', {
-      });
+      const response = await axios.get('http://localhost:4000/vehiculos');
       v_data.value = response.data.map(item => {
-            try {
-                if (item.Caracteristicas) {
-                    const caracteristicasParsed = JSON.parse(item.Caracteristicas);
-                    return {
-                        idVehiculos: item.idVehiculos,
-                        ...caracteristicasParsed
-                    };
-                } else {
-                    return {
-                        idVehiculos: item.idVehiculos,
-                        error: 'Missing characteristics data'
-                    };
-                }
-            } catch (parseError) {
-                return {
-                    idVehiculos: item.idVehiculos,
-                    error: 'Error parsing data'
-                };
-            }
-        });
+        try {
+          if (item.Caracteristicas) {
+            const caracteristicasParsed = JSON.parse(item.Caracteristicas);
+            return {
+              idVehiculos: item.idVehiculos,
+              ...caracteristicasParsed
+            };
+          } else {
+            return {
+              idVehiculos: item.idVehiculos,
+              error: 'Missing characteristics data'
+            };
+          }
+        } catch (parseError) {
+          return {
+            idVehiculos: item.idVehiculos,
+            error: 'Error parsing data'
+          };
+        }
+      });
     } catch (err) {
       error.value = 'Error al cargar datos de vehiculo';
       console.error(err);
     }
-}
-
-onBeforeMount(
-cargar_vehiculos
-)
-
-</script>
+  }
+  
+  onBeforeMount(cargar_vehiculos);
+  </script>
 <style scoped >
 
 .tarjetas {

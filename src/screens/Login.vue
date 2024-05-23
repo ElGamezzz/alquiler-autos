@@ -1,67 +1,53 @@
 <template>
-    <div class="container mt-50">
-        <div class="columnas">
-            <div class="column is-6 is-offset-3">
-                <h3 class="title">Iniciar Sesión</h3><hr>
-                <form action="#" @submit.prevent="login">
-
-                    <div class="field">
-                        <label class="h2">Correo Electrónico</label>
-                        <div class="control">
-                            <input class="input" type="email" placeholder="correo@example.com" v-model="email">
-                        </div>
-                    </div>
-
-                    <div class="field">
-                        <label class="h2">Contraseña</label>
-                        <div class="control">
-                            <input class="input" type="password" placeholder="********" v-model="password">
-                        </div>
-                    </div>
-
-                    <button type="submit" class="boton-login">Iniciar Sesión</button>
-                </form>
-                <div class="notification is-danger mt-10" v-if="error">
-                    {{ error }}
-                </div>
-            </div>
+    <div>
+      <h2>Iniciar Sesión</h2>
+      <form @submit.prevent="login">
+        <div>
+          <label>Email:</label>
+          <input type="email" v-model="email" required />
         </div>
+        <div>
+          <label>Contraseña:</label>
+          <input type="password" v-model="password" required />
+        </div>
+        <button type="submit">Iniciar Sesión</button>
+      </form>
+      <div v-if="error" class="error">{{ error }}</div>
     </div>
-</template>
-
-<script setup>
-import axios from 'axios';
+  </template>
+  
+  <script setup>
+  import axios from 'axios';
 import { ref } from 'vue';
-
-const email = ref('');
-const password = ref('');
-const error = ref('');
-
-async function login() {
+import { useRouter } from 'vue-router';
+  
+  const email = ref('');
+  const password = ref('');
+  const error = ref('');
+  const router = useRouter();
+  
+  const login = async () => {
     error.value = '';
-    if (email.value && password.value) {
-        try {
-            const response = await axios.post('http://localhost:4000/login', {
-                email: email.value,
-                password: password.value
-            });
-            if (response.status === 200) {
-                localStorage.setItem('token', response.data.token);
-                alert("inicio de seccion correcto")
-                // Redirigir al usuario a la página principal, por ejemplo:
-                // router.push('/'); // Reemplaza '/ 'con la ruta real de tu página principal
-            } else {
-                error.value = 'Error al iniciar sesión';
-            }
-        } catch (err) {
-            error.value = err.message;
-        }
-    } else {
-        error.value = 'Todos los campos son requeridos';
+    try {
+      const response = await axios.post('http://localhost:4000/login', {
+        email: email.value,
+        password: password.value
+      });
+      const userData = response.data;
+      localStorage.setItem('authToken', userData.token);
+      router.push('/alquiler'); // Redirigir a la ruta /alquiler después del login exitoso
+    } catch (err) {
+      error.value = 'Error al iniciar sesión';
+      console.error(err);
     }
-}
-</script>
-
+  };
+  </script>
+  
+  <style>
+  .error {
+    color: red;
+  }
+  </style>
 
 <style>
 .body {
