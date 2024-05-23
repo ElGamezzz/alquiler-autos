@@ -10,7 +10,7 @@ import mysql from 'mysql';
     // Configura la conexión a la base de datos
     const connection = mysql.createConnection({
         host: 'localhost',
-        database: 'prueba',
+        database: 'carsharing_db',
         user: 'mysql_user',
         password: 'mysql123@',
         port: 3306
@@ -125,6 +125,18 @@ import mysql from 'mysql';
             }
         });
     });
+
+    app.post('/setalquiler', async (req, res) => {
+        const { date_alquiler, date_alquiler_final, id_vehiculo_alquilado, id_user_alquilador } = req.body;
+        try {
+          const [result] = await connection.query('INSERT INTO alquiler_v (date_alquiler, date_alquiler_final, id_vehiculo_alquilado, id_user_alquilador) VALUES (?, ?, ?, ?)', 
+          [date_alquiler, date_alquiler_final, id_vehiculo_alquilado, id_user_alquilador]);
+          res.json({ idAlquiler_V: result.insertId });
+        } catch (err) {
+          res.status(500).json({ error: err.message });
+        }
+      });
+
     // Otros middleware y rutas...
 
     const PORT = 4000;

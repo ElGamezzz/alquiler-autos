@@ -1,11 +1,11 @@
 <template>
   <div id="Mainconte">
     <div id="CarINFO">
-      <h1 id="title" v-if="veh_estado == 'True'">El Vehiculo esta disponible</h1>
+      <h1 id="title" v-if="veh_estado == 'True'">El Vehiculo está disponible</h1>
       <h1 id="title" v-else>Este vehiculo ya esta reservado o no esta disponible</h1>
       <img :src="img_query" alt="">
       <button>CONFIRMAR</button>
-      <router-link v-if="veh_estado !== 'True'" to="/alquiler">
+      <router-link  to="/alquiler">
         Volver
       </router-link>
     </div>
