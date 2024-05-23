@@ -49,10 +49,13 @@
         </div>
     </div>
 </template>
-<script setup>
-import { ref } from 'vue';
-import axios from 'axios';
 
+<script setup>
+import axios from 'axios';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 const name = ref('');
 const email = ref('');
 const password = ref('');
@@ -72,6 +75,7 @@ const register = async () => {
         cedula: cedula.value
       });
       console.log(response.data);  // Puedes mostrar una confirmación o hacer otras acciones después de registrar al usuario
+      router.push('/login');
     } catch (err) {
       error.value = 'Error al registrar usuario';
       console.error(err);
@@ -81,6 +85,7 @@ const register = async () => {
   }
 }
 </script>
+
 <style>
 .body {
     background-color: #8a9fff;
@@ -108,6 +113,4 @@ const register = async () => {
     border-radius: 35px;
     border: 4px;
 }
-
-
 </style>
