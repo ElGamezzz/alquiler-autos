@@ -10,7 +10,7 @@ import mysql from 'mysql';
     // Configura la conexión a la base de datos
     const connection = mysql.createConnection({
         host: 'localhost',
-        database: 'carsharing_db',
+        database: 'prueba',
         user: 'mysql_user',
         password: 'mysql123@',
         port: 3306
