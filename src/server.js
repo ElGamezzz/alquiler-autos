@@ -56,7 +56,7 @@ import mysql from 'mysql';
             if (password === user.password) {
                 // Generar token de sesión (ejemplo usando JWT)
                 const token = jwt.sign({ userId: user.id }, 'secret_key', { expiresIn: '1h' });
-                return res.status(200).json({ token });
+                return res.status(200).json({ token , userId: user.id });
             } else {
                 return res.status(401).json({ error: 'Credenciales incorrectas' });
             }
@@ -133,7 +133,7 @@ import mysql from 'mysql';
           [date_alquiler, date_alquiler_final, id_vehiculo_alquilado, id_user_alquilador]);
           res.json({ idAlquiler_V: result.insertId });
         } catch (err) {
-          res.status(500).json({ error: err.message });
+          res.status(400).json({ error: err.message });
         }
       });
 

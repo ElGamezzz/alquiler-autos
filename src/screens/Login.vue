@@ -25,15 +25,23 @@ import { useRouter } from 'vue-router';
   const password = ref('');
   const error = ref('');
   const router = useRouter();
+  const iduser =ref("");
+
   
+
   const login = async () => {
     error.value = '';
     try {
       const response = await axios.post('http://localhost:4000/login', {
         email: email.value,
-        password: password.value
-      });
+        password: password.value,
+      }
+    );
+
+      iduser.value=response.data.userId;
       const userData = response.data;
+
+      localStorage.setItem('userId', iduser.value);
       localStorage.setItem('authToken', userData.token);
       router.push('/alquiler'); // Redirigir a la ruta /alquiler después del login exitoso
     } catch (err) {
@@ -41,15 +49,14 @@ import { useRouter } from 'vue-router';
       console.error(err);
     }
   };
+
   </script>
   
-  <style>
-  .error {
+<style scoped>
+.error {
     color: red;
   }
-  </style>
 
-<style>
 .body {
     background-color: #8a9fff;
     width: 100%;

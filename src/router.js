@@ -13,7 +13,7 @@ const routes = [
     path: '/alquiler', 
     name: 'Alquiler', 
     component: Alquiler, 
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true },
   },
   { path: '/mapEx/:id', name: 'map', component: maps_ex }
 ];

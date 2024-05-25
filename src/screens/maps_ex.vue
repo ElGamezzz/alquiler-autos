@@ -1,16 +1,25 @@
 <template>
-  <div id="Mainconte">
-    <div id="CarINFO">
-      <h1 id="title" v-if="veh_estado == 'True'">El Vehiculo está disponible</h1>
-      <h1 id="title" v-else>Este vehiculo ya esta reservado o no esta disponible</h1>
-      <img :src="img_query" alt="">
-      <button>CONFIRMAR</button>
-      <router-link  to="/alquiler">
-        Volver
-      </router-link>
+  <body>
+    <div id="Mainconte">
+      <div id="CarINFO">
+        <h1 id="title" v-if="veh_estado == 'True'">El Vehiculo está disponible</h1>
+        <h1 id="title" v-else>Este vehiculo ya esta reservado o no esta disponible</h1>
+        <img :src="img_query" alt="">
+        <div class="date-container">
+          <h3 v-if="veh_estado == 'True'">Tu reserva comienza ahora {{ fecha.toISOString().slice(0, 16) }} y termina:</h3>
+          <input v-if="veh_estado == 'True'" type="datetime-local" v-model="date_alquiler_final" :min="fecha.toISOString().slice(0, 16)" :max="maxDate.toISOString().slice(0, 16)" class="date-input">
+          <!-- <div class="message" v-if="message">
+                    {{ message }}
+          </div> -->
+        </div>
+        <button  v-if="veh_estado == 'True'" @click="()=>console.log(date_alquiler_final),createAlquiler">CONFIRMAR</button>
+        <router-link  to="/alquiler">
+          Volver
+        </router-link>
+      </div>
+      <capacitor-google-map id="map"></capacitor-google-map>
     </div>
-    <capacitor-google-map id="map"></capacitor-google-map>
-  </div>
+  </body>
 </template>
 
 <style scoped>
@@ -19,10 +28,11 @@
     justify-content: space-between;
     align-items: center;
     height: 100%;
+    margin-bottom: 1rem;
   }
 
   #CarINFO {
-    width: 45%;
+    width: 40%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -57,6 +67,23 @@
     font-size: 150%;
     color: aliceblue;
   }
+  .date-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.date-input {
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+.message{
+  color: rgba(0, 255, 170, 0.815);
+}
+
 </style>
 
 <script setup>
@@ -70,12 +97,25 @@ const v_ub_LAT = ref("");
 const v_ub_LONG = ref("");
 const veh_estado = ref("");
 const error = ref("");
+const message = ref("");
+
 const Id_Vquery = route.query.QID;
 const img_query = route.query.Img
 
+const date_alquiler = ref("");
+const date_alquiler_final = ref("");
+
+const fecha = new Date();
+const maxDate = new Date(fecha.getTime() + 24 * 60 * 60 * 1000);
+
+
+const userId = localStorage.getItem('userId');
+
+console.log(date_alquiler_final );
 
 const busqueda_V = async () => {
   try {
+
     const response = await axios.post('http://localhost:4000/ubicacion', {
       idVehiculos: Id_Vquery
     });
@@ -87,6 +127,21 @@ const busqueda_V = async () => {
     error.value = err.message;
   }
 };
+
+const createAlquiler = async () => {
+      try {
+        date_alquiler.value=fecha.toISOString().slice(0, 16);
+        const response = await axios.post('http://localhost:4000/setalquiler', {
+          date_alquiler: date_alquiler.value,
+          date_alquiler_final: date_alquiler_final.value,
+          id_vehiculo_alquilado: Id_Vquery,
+          id_user_alquilador: userId,
+        });
+        message.value = `Alquiler creado con ID: ${response.data.idAlquiler_V}`;
+      } catch (error) {
+        message.value = `Error: ${error.response ? error.response.data.error : error.message}`;
+      }
+    };
 
 const createMap = async () => {
   const mapRef = document.getElementById('map');

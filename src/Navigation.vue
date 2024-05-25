@@ -1,56 +1,68 @@
 <template>
-    <router-link class="header" to="/">
-      <h1 class="title">Carsharing</h1>
-    </router-link>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-      <div id="navbarBasicExample" class="navbar-menu">
-        <div class="buttons">
-          <template v-if="user">
-            <div class="navbar-item has-dropdown is-hoverable">
-              <a class="navbar-link">Usuario</a>
-              <div class="navbar-dropdown">
-                <router-link class="navbar-item" to="/">Home</router-link>
-                <a class="navbar-item is-selected" @click.prevent="logout">Cerrar Sesion</a>
-              </div>
+  <router-link class="header" to="/">
+    <h1 class="title">Carsharing</h1>
+  </router-link>
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div id="navbarBasicExample" class="navbar-menu">
+      <div class="buttons">
+        <template v-if="user">
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link" aria-haspopup="true">Usuario</a>
+            <div class="navbar-dropdown">
+              <router-link class="navbar-item" to="/">Home</router-link>
+              <a class="navbar-item is-selected" @click.prevent="logout">Cerrar Sesion</a>
             </div>
-          </template>
-          <template v-else>
-            <router-link class="ButtonHome" to="/signup">
-              <strong>Registrarse</strong>
-            </router-link>
-            <router-link class="ButtonHome" to="/login">
-              Iniciar Sesión
-            </router-link>
-            <router-link to="/">
-              <button class="ButtonHome">Inicio</button>
-            </router-link>
-          </template>
-        </div>
+          </div>
+        </template>
+        <template v-else>
+          <router-link class="button is-primary" to="/signup">
+            <strong>Registrarse</strong>
+          </router-link>
+          <router-link class="button is-light" to="/login">
+            Iniciar Sesión
+          </router-link>
+          <router-link to="/">
+            <button class="button">Inicio</button>
+          </router-link>
+        </template>
       </div>
-    </nav>
-  </template>
-  
-  <script setup>
-  import { onMounted, ref } from 'vue';
+    </div>
+  </nav>
+</template>
+
+<script setup>
+import { ref, onMounted, watchEffect } from 'vue';
 import { useRouter } from 'vue-router';
-  
-  const user = ref(null);
-  const router = useRouter();
-  
-  onMounted(() => {
-    const authToken = localStorage.getItem('authToken');
-    if (authToken) {
-      user.value = true;
-    }
-  });
-  
-  const logout = () => {
+
+const user = ref(null);
+const router = useRouter();
+
+const checkAuth = () => {
+  const authToken = localStorage.getItem('authToken');
+  user.value = !!authToken;
+};
+
+// Initial check on mount
+onMounted(() => {
+  checkAuth();
+});
+
+// Watch for changes in localStorage
+watchEffect(() => {
+  const authToken = localStorage.getItem('authToken');
+  user.value = !!authToken;
+});
+
+const logout = () => {
+  try {
     localStorage.removeItem('authToken');
     user.value = null;
     router.push('/login');
-  };
-  </script>
-  
+  } catch (error) {
+    console.error('Error logging out:', error);
+  }
+};
+</script>
   <style>
   /* Tu CSS aquí */
   body {
