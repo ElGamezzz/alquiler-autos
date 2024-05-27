@@ -3,9 +3,8 @@
     <h1 class="title">Carsharing</h1>
   </router-link>
   <nav class="navbar" role="navigation" aria-label="main navigation">
-    <div id="navbarBasicExample" class="navbar-menu">
-      <div class="buttons">
-        <template v-if="user">
+    <div class="buttons-container">
+      <template v-if="user">
           <div class="navbar-item has-dropdown is-hoverable">
             <a class="navbar-link" aria-haspopup="true">Usuario</a>
             <div class="navbar-dropdown">
@@ -14,18 +13,17 @@
             </div>
           </div>
         </template>
-        <template v-else>
-          <router-link class="button is-primary" to="/signup">
-            <strong>Registrarse</strong>
-          </router-link>
-          <router-link class="button is-light" to="/login">
-            Iniciar Sesión
-          </router-link>
-          <router-link to="/">
-            <button class="button">Inicio</button>
-          </router-link>
-        </template>
-      </div>
+      <template v-else>
+        <router-link class="button is-primary" to="/signup">
+          <strong>Registrarse</strong>
+        </router-link>
+        <router-link class="button is-light" to="/login">
+          Iniciar Sesión
+        </router-link>
+        <router-link to="/">
+          <button class="button">Inicio</button>
+        </router-link>
+      </template>
     </div>
   </nav>
 </template>
@@ -67,6 +65,9 @@ const logout = () => {
   /* Tu CSS aquí */
   body {
     background-color: #000000;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
   }
   .header {
     background-color: #000000 !important;
@@ -115,10 +116,6 @@ const logout = () => {
     align-items: center;
     width: 100%;
   }
-  .buttons {
-    display: flex;
-    align-items: center;
-  }
   .ButtonHome {
     background-color: #ffffff;
     color: #000;
@@ -142,5 +139,14 @@ const logout = () => {
     margin-right: 1rem;
     width: auto;
   }
+  .buttons-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 1rem;
+}
+.button {
+  margin-left: 0.5rem;
+}
   </style>
   

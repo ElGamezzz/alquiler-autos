@@ -1,25 +1,35 @@
 <template>
-    <div>
-      <h2>Iniciar Sesión</h2>
-      <form @submit.prevent="login">
-        <div>
-          <label>Email:</label>
-          <input type="email" v-model="email" required />
-        </div>
-        <div>
-          <label>Contraseña:</label>
-          <input type="password" v-model="password" required />
-        </div>
-        <button type="submit">Iniciar Sesión</button>
-      </form>
-      <div v-if="error" class="error">{{ error }}</div>
+  <div class="container mt-50">
+    <div class="columnas">
+      <div class="column is-6 is-offset-3">
+        <h3 class="title">Iniciar Sesión</h3>
+        <hr>
+        <form @submit.prevent="login">
+          <div class="field">
+            <label class="h2">Correo Electrónico</label>
+            <div class="control">
+              <input class="input" type="email" placeholder="alexsmith@gmail.com" v-model="email" required>
+            </div>
+          </div>
+          <div class="field">
+            <label class="h2">Contraseña</label>
+            <div class="control">
+              <input class="input" type="password" placeholder="********" v-model="password" required>
+            </div>
+          </div>
+          <button type="submit" class="boton-registro">Iniciar Sesión</button>
+        </form>
+        <div v-if="error" class="notification is-danger mt-10">{{ error }}</div>
+      </div>
     </div>
-  </template>
+  </div>
+</template>
+
   
   <script setup>
   import axios from 'axios';
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+  import { ref } from 'vue';
+  import { useRouter } from 'vue-router';
   
   const email = ref('');
   const password = ref('');
@@ -52,37 +62,36 @@ import { useRouter } from 'vue-router';
 
   </script>
   
-<style scoped>
-.error {
-    color: red;
-  }
 
-.body {
+  <style scoped>
+  .body {
     background-color: #8a9fff;
-    width: 100%;
-}
-.boton-login {
+  }
+  
+  .boton-registro {
+    background-color: #ffffff;
     color: black;
     border: none;
     border-radius: 1rem;
-    padding: 1rem;
+    padding: 1.5rem;
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-top: 1rem;
-    background-color: #ffffff;
-    
-}
-.title {
-    color: #ffffff;
-}
-.h2 {
-    color: #ffffff;
-}
-.input {
+    margin-top: 2rem;
+  }
+  
+  .title {
+    color: #000000;
+  }
+  
+  .h2 {
+    color: #000000;
+  }
+  
+  .input {
     background-color: #778894;
     border-color: #004aad;
     border-radius: 35px;
     border: 4px;
-}
-</style>
+  }
+  </style>

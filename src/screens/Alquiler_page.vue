@@ -1,8 +1,8 @@
 <template>
     <div>
       <header></header>
+      <h1 class="tittle">Lista de Vehiculos</h1>
       <div class="Contenedor">
-        <h1></h1>
         <div class="tarjetas" v-for="vehiculos in v_data" :key="vehiculos.idVehiculos">
           <h1>Categoria: {{ vehiculos.Categoria }}</h1>
           <h3>Marca: {{ vehiculos.marca }}</h3>
@@ -57,6 +57,8 @@ import { onBeforeMount, ref } from 'vue';
   </script>
 <style scoped >
 
+@import url('https://fonts.googleapis.com/css2?family=Jacquard+12&display=swap');
+
 .tarjetas {
     color: aliceblue;
     width: 20%;
@@ -103,5 +105,16 @@ img:hover{
     -moz-transform: scale(1.5,1.5);
     -moz-transition-timing-function: ease-out;
     -moz-transition-duration: 500ms;
+}
+.tittle{
+    font-size: 50px; /* Tamaño de fuente */
+    margin: 0; /* Eliminar el margen para centrar */
+    line-height: 1; /* Ajustar el espacio entre líneas */
+    text-align: center; /* Centrar el texto */
+    color: #ea1212 !important; /* Color del texto */
+    margin-bottom: 2rem;
+    font-family: "Jacquard 12", system-ui;
+    font-weight: 400;
+    font-style: normal;
 }
 </style>
