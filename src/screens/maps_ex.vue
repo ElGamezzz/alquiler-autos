@@ -1,25 +1,31 @@
 <template>
-  <body>
-    <div id="Mainconte">
-      <div id="CarINFO">
-        <h1 id="title" v-if="veh_estado == 'True'">El Vehiculo está disponible</h1>
-        <h1 id="title" v-else>Este vehiculo ya esta reservado o no esta disponible</h1>
-        <img :src="img_query" alt="">
-        <div class="date-container">
-          <h3 v-if="veh_estado == 'True'">Tu reserva comienza ahora {{ fecha.toISOString().slice(0, 16) }} y termina:</h3>
-          <input v-if="veh_estado == 'True'" type="datetime-local" v-model="date_alquiler_final" :min="fecha.toISOString().slice(0, 16)" :max="maxDate.toISOString().slice(0, 16)" class="date-input">
-          <!-- <div class="message" v-if="message">
-                    {{ message }}
-          </div> -->
-        </div>
-        <button  v-if="veh_estado == 'True'" @click="()=>console.log(date_alquiler_final),createAlquiler">CONFIRMAR</button>
-        <router-link  to="/alquiler">
-          Volver
-        </router-link>
+  <div id="Mainconte">
+    <div id="CarINFO">
+      <h1 id="title" v-if="veh_estado == 'True'">El Vehiculo está disponible</h1>
+      <h1 id="title" v-else>Este vehiculo ya esta reservado o no esta disponible</h1>
+      <img :src="img_query" alt="Imagen del Vehiculo">
+      <div class="date-container">
+        <h3 v-if="veh_estado == 'True'">Tu reserva comienza ahora {{ fecha.toISOString().slice(0, 16) }} y termina:</h3>
+        <input v-if="veh_estado == 'True'" type="datetime-local" v-model="date_alquiler_final" :min="fecha.toISOString().slice(0, 16)" :max="maxDate.toISOString().slice(0, 16)" class="date-input">
       </div>
-      <capacitor-google-map id="map"></capacitor-google-map>
+      <button v-if="veh_estado == 'True'" @click="confirmarAlquiler">CONFIRMAR</button>
+      <button v-if="veh_estado == 'True'" @click="mostrarModalPago">Pagar</button>
+      <router-link to="/alquiler">Volver</router-link>
+      <div class="message" v-if="message">{{ message }}</div>
     </div>
-  </body>
+    <capacitor-google-map id="map"></capacitor-google-map>
+
+    <!-- Modal de Pago -->
+    <div v-if="mostrarModal" class="modal-overlay">
+      <div class="modal">
+        <h2>Información de Pago</h2>
+        <p>Precio del vehículo: {{ precio_vehiculo }} COP</p>
+        <p>Código de pago: {{ codigoPago }}</p>
+        <p>Puedes pagar en el punto Efecty más cercano.</p>
+        <button @click="cerrarModal">Cerrar</button>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style scoped>
@@ -83,6 +89,41 @@
 .message{
   color: rgba(0, 255, 170, 0.815);
 }
+/* Estilos del modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Sombra */
+}
+
+.modal-title {
+  margin-top: 0;
+}
+
+.modal-content {
+  margin-bottom: 10px;
+}
+
+.modal-close {
+  background-color: #ccc;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
 </style>
 
@@ -98,6 +139,7 @@ const v_ub_LONG = ref("");
 const veh_estado = ref("");
 const error = ref("");
 const message = ref("");
+const mostrarModal = ref(false); // Definir mostrarModal aquí
 
 const Id_Vquery = route.query.QID;
 const img_query = route.query.Img
@@ -110,6 +152,7 @@ const maxDate = new Date(fecha.getTime() + 24 * 60 * 60 * 1000);
 
 
 const userId = localStorage.getItem('userId');
+
 
 console.log(date_alquiler_final );
 
@@ -126,6 +169,11 @@ const busqueda_V = async () => {
   } catch (err) {
     error.value = err.message;
   }
+};
+
+const generarCodigoPago = () => {
+  // Generar un código de 6 dígitos aleatorio
+  codigoPago.value = Math.floor(100000 + Math.random() * 900000);
 };
 
 const createAlquiler = async () => {
@@ -177,6 +225,13 @@ const createMap = async () => {
   }
 });
   
+};
+const mostrarModalPago = () => {
+  mostrarModal.value = true;
+};
+
+const cerrarModal = () => {
+  mostrarModal.value = false;
 };
 
 onBeforeMount(busqueda_V);
