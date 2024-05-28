@@ -9,6 +9,17 @@
 <script >
 
 import Navigation from '@/Navigation.vue'
+import { onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+onMounted(() => {
+  const authToken = localStorage.getItem('authToken');
+  if (!authToken) {
+    router.push('/');
+  }
+});
 
 export default{
   name: 'App',
