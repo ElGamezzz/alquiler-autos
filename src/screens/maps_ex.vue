@@ -8,10 +8,10 @@
         <h3 v-if="veh_estado == 'True'">Tu reserva comienza ahora {{ fecha.toISOString().slice(0, 16) }} y termina:</h3>
         <input v-if="veh_estado == 'True'" type="datetime-local" v-model="date_alquiler_final" :min="fecha.toISOString().slice(0, 16)" :max="maxDate.toISOString().slice(0, 16)" class="date-input">
       </div>
-      <button v-if="veh_estado == 'True'" @click="confirmarAlquiler">CONFIRMAR</button>
+      <button v-if="veh_estado == 'True'" @click="createAlquiler">CONFIRMAR</button>
       <button v-if="veh_estado == 'True'" @click="mostrarModalPago">Pagar</button>
       <router-link to="/alquiler">Volver</router-link>
-      <div class="message" v-if="message">{{ message }}</div>
+      <!-- <div class="message" v-if="message">{{ message }}</div> -->
     </div>
     <capacitor-google-map id="map"></capacitor-google-map>
 
@@ -149,7 +149,6 @@ const date_alquiler_final = ref("");
 
 const fecha = new Date();
 const maxDate = new Date(fecha.getTime() + 24 * 60 * 60 * 1000);
-
 
 const userId = localStorage.getItem('userId');
 

@@ -15,7 +15,7 @@ const routes = [
     component: Alquiler, 
     meta: { requiresAuth: true },
   },
-  { path: '/mapEx/:id', name: 'map', component: maps_ex }
+  { path: '/mapEx/:id', name: 'map', component: maps_ex, meta: { requiresAuth: true }}
 ];
 
 const router = createRouter({
