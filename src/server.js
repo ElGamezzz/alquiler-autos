@@ -1,6 +1,6 @@
     // En tu archivo de servidor Node.js (app.js o similar)
 
-    import cors from 'cors';
+import cors from 'cors';
 import express from 'express';
 import jwt from 'jsonwebtoken';
 import mysql from 'mysql';
@@ -10,7 +10,7 @@ import mysql from 'mysql';
     // Configura la conexión a la base de datos
     const connection = mysql.createConnection({
         host: 'localhost',
-        database: 'prueba',
+        database: 'carsharing_db',
         user: 'mysql_user',
         password: 'mysql123@',
         port: 3306

@@ -9,8 +9,8 @@
         <input v-if="veh_estado == 'True'" type="datetime-local" v-model="date_alquiler_final" :min="fecha.toISOString().slice(0, 16)" :max="maxDate.toISOString().slice(0, 16)" class="date-input">
       </div>
       <button v-if="veh_estado == 'True'" @click="createAlquiler">CONFIRMAR</button>
-      <button v-if="veh_estado == 'True'" @click="mostrarModalPago">Pagar</button>
-      <router-link to="/alquiler">Volver</router-link>
+      <!-- <button v-if="veh_estado == 'True'" @click="mostrarModalPago">Pagar</button> -->
+      <router-link to="/alquiler">Atras</router-link>
       <!-- <div class="message" v-if="message">{{ message }}</div> -->
     </div>
     <capacitor-google-map id="map"></capacitor-google-map>
@@ -165,6 +165,7 @@ const busqueda_V = async () => {
     v_ub_LONG.value = response.data.longitud;
     veh_estado.value = response.data.estado;
     await createMap(); // Crear el mapa después de recibir la ubicación
+
   } catch (err) {
     error.value = err.message;
   }
@@ -188,6 +189,9 @@ const createAlquiler = async () => {
       } catch (error) {
         message.value = `Error: ${error.response ? error.response.data.error : error.message}`;
       }
+      setTimeout(()=>{
+        window.location.reload();
+      },100)
     };
 
 const createMap = async () => {
